@@ -1,0 +1,38 @@
+This is your new Play application
+=================================
+Problem:
+1. Fork the repo https://github.com/vijaykiran/random-repo - there are 3 CSV files in the repository. The files contain data for countries, airports and runway information.
+2. Write a program in Java/Scala that will ask the user for two options - Query or Reports.
+2.1 Query Option will ask the user for the country name or code and print the airports & runways at each airport. The input can be country code or country name.
+For bonus points make the test partial/fuzzy. e.g. entering zimb will result in Zimbabwe 
+2.2 Choosing Reports will print the following:
+• 10 countries with highest number of airports (with count) and countries  with lowest number of airports.
+• Type of runways (as indicated in "surface" column) per country
+• Bonus: Print the top 10 most common runway latitude (indicated in "le_ident" column)
+• Feel free to use any library/framework as necessary.
+
+Solution:
+I designed three main webservices to solve this problem.
+1- initializeDB: In first move we need to make the database and initialize the data. by running this webservice we will have lunatech database with three tabel Airoport, Country, Runway.
+e.x. http://127.0.0.1:9000/initializeDB
+
+2- countryQuery?countryname||countrycode: User can make a query with this webservice. This webservice has two intput parmeters. countryName and countryCode. user can ask query by filling these two parameter seperatly.
+countryname will accept fuzzy input.
+e.x. http://127.0.0.1:9000/countryQuery?countryname=zimb
+e.x. http://127.0.0.1:9000/countryQuery?countrycode=zw
+
+3- reports: User can make a report with this web service. In this version of report all parts of report are binded together.
+e.x. http://127.0.0.1:9000/reports
+
+4- report?reporttype: this webservice give this ability to user to run reports seperaitly by naming them. in this case the types are
+(Type1,Type2,Type3,Type4) 
+e.x. http://127.0.0.1:9000/report?reporttype=Type1
+
+
+Prepration:
+1- Make a mysql schema with name of lunatech
+ db.default.url="jdbc:mysql://localhost:3306/lunatech"
+ db.default.username=root
+ db.default.password="123123"
+
+This file will be packaged with your application, when using `activator dist`.
